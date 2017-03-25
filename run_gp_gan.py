@@ -76,10 +76,11 @@ def main():
     else:
         test_list = [(args.src_image, args.dst_image, args.mask_image)]
     
-    # Init result folder
-    if not os.path.isdir(args.result_folder):
-        os.makedirs(args.result_folder)
-    print('Result will save to {} ...\n'.format(args.result_folder))
+    if not args.blended_image:
+        # Init result folder
+        if not os.path.isdir(args.result_folder):
+            os.makedirs(args.result_folder)
+        print('Result will save to {} ...\n'.format(args.result_folder))
 
     total_size = len(test_list)
     for idx in range(total_size):
