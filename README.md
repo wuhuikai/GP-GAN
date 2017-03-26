@@ -59,8 +59,44 @@ pip install chainer
 Details see the official [README](https://github.com/pfnet/chainer) for installing Chainer.
 ## Command line arguments:
 Type `python run_gp_gan.py --help` for a complete list of the arguments.
+* `--supervised`: use unsupervised Blending GAN if set to False
+* `--list_path`: process batch of images according to the list
 
-## Dataset and Training
+## Step by step from scratch
+### Training Blending GAN
+* Download Transient Attributes Dataset, see [the project website](http://transattr.cs.brown.edu/) for more details.
+* Crop the images in each subfolder:
+```bash
+python crop_aligned_images.py --data_root [Path for imageAlignedLD in Transient Attributes Dataset]
+```
+* Train Blending GAN:
+```bash
+python train_blending_gan.py --data_root [Path for cropped aligned images of Transient Attributes Dataset]
+```
+* Training Curve
+
+![](images/blending_gan_result/loss.png)
+* Result
+
+|Training Set|Validation Set|
+|---|---|
+|![](images/blending_gan_result/train.png)|![](images/blending_gan_result/val.png)|
+### Training Unsupervised Blending GAN
+* Download the hdf5 dataset of outdoor natural images: [ourdoor_64.hdf5](https://people.eecs.berkeley.edu/~junyanz/projects/gvm/datasets/outdoor_64.zip) (1.4G), which contains 150K landscape images from MIT [Places](http://places.csail.mit.edu/) dataset. 
+* Train unsupervised Blending GAN:
+```bash
+python train_wasserstein_gan.py --data_root [Path for outdoor_64.hdf5]
+```
+* Training Curve
+![](images/unsupervised_gan_result/d_loss.png)
+* Samples after training
+
+![](images/unsupervised_gan_result/samples.png)
+
+**NOTE:** Type `python [SCRIPT_NAME].py --help` for more details about the arguments.
+
+## Object-level annotation for Transient Attributes Dataset (used for mask images)
+`TODO`
 
 ## TODO
 - [ ] Experiment with more gradient operators like [Sobel](https://en.wikipedia.org/wiki/Sobel_operator) or egde detectors like [Canny](https://en.wikipedia.org/wiki/Canny_edge_detector).
