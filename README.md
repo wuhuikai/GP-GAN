@@ -26,18 +26,21 @@ cd GP-GAN
 ``` bash
 python run_gp_gan.py --src_image images/test_images/src.jpg --dst_image images/test_images/dst.jpg --mask_image images/test_images/mask.png --blended_image images/test_images/result.png
 ```
-|source|destination|mask|composited|blended|
-|---|---|---|---|---|
-|![](images/test_images/src.jpg)|![](images/test_images/dst.jpg)|![](images/test_images/mask_display.png)|![](images/test_images/copy-paste.png)|![](images/test_images/result.png)|
+
+| source | destination | mask | composited | blended |
+| --- | --- | --- | --- | --- |
+| ![](images/test_images/src.jpg) | ![](images/test_images/dst.jpg) | ![](images/test_images/mask_display.png) | ![](images/test_images/copy-paste.png) | ![](images/test_images/result.png) |
 
 ## Results compared with baseline methods
-|Mask|Copy-and-Paste|Modified-Poisson|Multi-splines|Supervised GP-GAN|Unsupervised GP-GAN|
-|---|---|---|---|---|---|
-|![](images/result_comparison/740_mask.png)|![](images/result_comparison/740_copy-paste.png)|![](images/result_comparison/740_modified-poisson.png)|![](images/result_comparison/740_multi-splines.png)|![](images/result_comparison/740_poisson-gan-encoder.png)|![](images/result_comparison/740_poisson-gan-wgan.png)|
-|![](images/result_comparison/2357_mask.png)|![](images/result_comparison/2357_copy-paste.png)|![](images/result_comparison/2357_modified-poisson.png)|![](images/result_comparison/2357_multi-splines.png)|![](images/result_comparison/2357_poisson-gan-encoder.png)|![](images/result_comparison/2357_poisson-gan-wgan.png)|
-|![](images/result_comparison/1550_mask.png)|![](images/result_comparison/1550_copy-paste.png)|![](images/result_comparison/1550_modified-poisson.png)|![](images/result_comparison/1550_multi-splines.png)|![](images/result_comparison/1550_poisson-gan-encoder.png)|![](images/result_comparison/1550_poisson-gan-wgan.png)|
-|![](images/result_comparison/1920_mask.png)|![](images/result_comparison/1920_copy-paste.png)|![](images/result_comparison/1920_modified-poisson.png)|![](images/result_comparison/1920_multi-splines.png)|![](images/result_comparison/1920_poisson-gan-encoder.png)|![](images/result_comparison/1920_poisson-gan-wgan.png)|
-|![](images/result_comparison/1153_mask.png)|![](images/result_comparison/1153_copy-paste.png)|![](images/result_comparison/1153_modified-poisson.png)|![](images/result_comparison/1153_multi-splines.png)|![](images/result_comparison/1153_poisson-gan-encoder.png)|![](images/result_comparison/1153_poisson-gan-wgan.png)|
+
+| Mask | Copy-and-Paste | Modified-Poisson | Multi-splines | Supervised GP-GAN | Unsupervised GP-GAN |
+| --- | --- | --- | --- | --- | --- |
+| ![](images/result_comparison/740_mask.png) | ![](images/result_comparison/740_copy-paste.png) | ![](images/result_comparison/740_modified-poisson.png) | ![](images/result_comparison/740_multi-splines.png) | ![](images/result_comparison/740_poisson-gan-encoder.png) | ![](images/result_comparison/740_poisson-gan-wgan.png) |
+| ![](images/result_comparison/2357_mask.png) | ![](images/result_comparison/2357_copy-paste.png) | ![](images/result_comparison/2357_modified-poisson.png) | ![](images/result_comparison/2357_multi-splines.png) | ![](images/result_comparison/2357_poisson-gan-encoder.png) | ![](images/result_comparison/2357_poisson-gan-wgan.png) |
+| ![](images/result_comparison/1550_mask.png) | ![](images/result_comparison/1550_copy-paste.png) | ![](images/result_comparison/1550_modified-poisson.png) | ![](images/result_comparison/1550_multi-splines.png) | ![](images/result_comparison/1550_poisson-gan-encoder.png) | ![](images/result_comparison/1550_poisson-gan-wgan.png) |
+| ![](images/result_comparison/1920_mask.png) | ![](images/result_comparison/1920_copy-paste.png) | ![](images/result_comparison/1920_modified-poisson.png) | ![](images/result_comparison/1920_multi-splines.png) | ![](images/result_comparison/1920_poisson-gan-encoder.png) | ![](images/result_comparison/1920_poisson-gan-wgan.png) |
+| ![](images/result_comparison/1153_mask.png) | ![](images/result_comparison/1153_copy-paste.png) | ![](images/result_comparison/1153_modified-poisson.png) | ![](images/result_comparison/1153_multi-splines.png) | ![](images/result_comparison/1153_poisson-gan-encoder.png) | ![](images/result_comparison/1153_poisson-gan-wgan.png) |
+
 ## Requirements
 The code is written in Python3.5 and requires the following 3rd party libraries:
 * scipy
@@ -78,9 +81,10 @@ python train_blending_gan.py --data_root [Path for cropped aligned images of Tra
 ![](images/blending_gan_result/loss.png)
 * Result
 
-|Training Set|Validation Set|
-|---|---|
-|![](images/blending_gan_result/train.png)|![](images/blending_gan_result/val.png)|
+| Training Set | Validation Set |
+| --- | --- |
+| ![](images/blending_gan_result/train.png) | ![](images/blending_gan_result/val.png) |
+
 ### Training Unsupervised Blending GAN
 * Download the hdf5 dataset of outdoor natural images: [ourdoor_64.hdf5](https://people.eecs.berkeley.edu/~junyanz/projects/gvm/datasets/outdoor_64.zip) (1.4G), which contains 150K landscape images from MIT [Places](http://places.csail.mit.edu/) dataset. 
 * Train unsupervised Blending GAN:
