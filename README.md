@@ -104,6 +104,19 @@ python train_wasserstein_gan.py --data_root [Path for outdoor_64.hdf5]
 * The processed masks are in the folder [`mask`](mask) on this repository
 * Coresponding scripts for processing raw xmls from `LabelMe` are also in the folder [`mask`](mask)
 
+## Evaluate blended results using RealismCNN
+### Get pretrained realismCNN
+Download pretrained [caffe model](http://www.eecs.berkeley.edu/~junyanz/projects/realism/realismCNN_models.zip) and transform it to Chainer model:
+```bash
+python load_caffe_model.py
+```
+**Or**
+Download pretrained [Chainer model](https://drive.google.com/open?id=0Bybnpq8dvwudVjBHNWNHUmVSV28) directly.
+### Evalute the blended images
+```bash
+python predict_realism.py --list_path [List File]
+```
+
 ## User Study
 ### Set up image server
 * Install lighttgb:
@@ -116,6 +129,8 @@ sh light_tpd_server.sh [Image Folder] [Port]
 ```
 ### Template for user study
 See [`user_study.html`] in folder [`user_study`](user_study) for details.
+
+![](user_study/user_study.png)
 
 ## Baseline Methods
 Code for baseline methods can be downloaded from [here](http://cg.cs.tsinghua.edu.cn/blending/).
