@@ -117,6 +117,11 @@ sh light_tpd_server.sh [Image Folder] [Port]
 ### Template for user study
 See [`user_study.html`] in folder [`user_study`](user_study) for details.
 
+## Baseline Methods
+Code for baseline methods can be downloaded from [here](http://cg.cs.tsinghua.edu.cn/blending/).
+
+Also, the modified code for baseline methods is in folder [`Baseline`](Baseline).
+
 ## TODO
 - [ ] Experiment with more gradient operators like [Sobel](https://en.wikipedia.org/wiki/Sobel_operator) or egde detectors like [Canny](https://en.wikipedia.org/wiki/Canny_edge_detector).
 - [ ] Add more constraints for optimizing `z` vector like [Perception Loss](http://cs.stanford.edu/people/jcjohns/eccv16/).
