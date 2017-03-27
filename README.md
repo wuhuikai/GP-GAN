@@ -101,8 +101,21 @@ python train_wasserstein_gan.py --data_root [Path for outdoor_64.hdf5]
 
 ## Object-level annotation for Transient Attributes Dataset (used for mask images)
 * The folder name on [LabelMe](http://labelme.csail.mit.edu/Release3.0/) is `/transient_attributes_101`
-* The processed masks are in the folder `mask` on this repository
-* Coresponding scripts for processing raw xmls from `LabelMe` are also in the folder `mask`
+* The processed masks are in the folder [`mask`](mask) on this repository
+* Coresponding scripts for processing raw xmls from `LabelMe` are also in the folder [`mask`](mask)
+
+## User Study
+### Set up image server
+* Install lighttgb:
+```bash
+sudo apt-get install lighttpd
+```
+* Start server by running the script in folder [`user_study`](user_study):
+```bash
+sh light_tpd_server.sh [Image Folder] [Port]
+```
+### Template for user study
+See [`user_study.html`] in folder [`user_study`](user_study) for details.
 
 ## TODO
 - [ ] Experiment with more gradient operators like [Sobel](https://en.wikipedia.org/wiki/Sobel_operator) or egde detectors like [Canny](https://en.wikipedia.org/wiki/Canny_edge_detector).
