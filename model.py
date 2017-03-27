@@ -123,3 +123,59 @@ class EncoderDecoder(chainer.Chain):
         h = self.decode(h, test=test)
 
         return h
+
+class RealismCNN(chainer.Chain):
+    def __init__(self, w_init=None):
+        super(RealismCNN, self).__init__(
+            conv1_1=L.Convolution2D(None, 64, ksize=3, stride=1, pad=1, initialW=w_init),
+            conv1_2=L.Convolution2D(None, 64, ksize=3, stride=1, pad=1, initialW=w_init),
+
+            conv2_1=L.Convolution2D(None, 128, ksize=3, stride=1, pad=1, initialW=w_init),
+            conv2_2=L.Convolution2D(None, 128, ksize=3, stride=1, pad=1, initialW=w_init),
+
+            conv3_1=L.Convolution2D(None, 256, ksize=3, stride=1, pad=1, initialW=w_init),
+            conv3_2=L.Convolution2D(None, 256, ksize=3, stride=1, pad=1, initialW=w_init),
+            conv3_3=L.Convolution2D(None, 256, ksize=3, stride=1, pad=1, initialW=w_init),
+
+            conv4_1=L.Convolution2D(None, 512, ksize=3, stride=1, pad=1, initialW=w_init),
+            conv4_2=L.Convolution2D(None, 512, ksize=3, stride=1, pad=1, initialW=w_init),
+            conv4_3=L.Convolution2D(None, 512, ksize=3, stride=1, pad=1, initialW=w_init),
+
+            conv5_1=L.Convolution2D(None, 512, ksize=3, stride=1, pad=1, initialW=w_init),
+            conv5_2=L.Convolution2D(None, 512, ksize=3, stride=1, pad=1, initialW=w_init),
+            conv5_3=L.Convolution2D(None, 512, ksize=3, stride=1, pad=1, initialW=w_init),
+
+            fc6=L.Convolution2D(None, 4096, ksize=7, stride=1, pad=0, initialW=w_init),
+            fc7=L.Convolution2D(None, 4096, ksize=1, stride=1, pad=0, initialW=w_init),
+            fc8=L.Convolution2D(None, 2, ksize=1, stride=1, pad=0, initialW=w_init)
+        )
+
+    def __call__(self, x, dropout=True):
+        h = F.relu(self.conv1_1(x))
+        h = F.relu(self.conv1_2(h))
+        h = F.max_pooling_2d(h, ksize=2, stride=2)
+
+        h = F.relu(self.conv2_1(h))
+        h = F.relu(self.conv2_2(h))
+        h = F.max_pooling_2d(h, ksize=2, stride=2)
+
+        h = F.relu(self.conv3_1(h))
+        h = F.relu(self.conv3_2(h))
+        h = F.relu(self.conv3_3(h))
+        h = F.max_pooling_2d(h, ksize=2, stride=2)
+
+        h = F.relu(self.conv4_1(h))
+        h = F.relu(self.conv4_2(h))
+        h = F.relu(self.conv4_3(h))
+        h = F.max_pooling_2d(h, ksize=2, stride=2)
+
+        h = F.relu(self.conv5_1(h))
+        h = F.relu(self.conv5_2(h))
+        h = F.relu(self.conv5_3(h))
+        h = F.max_pooling_2d(h, ksize=2, stride=2)
+
+        h = F.dropout(F.relu(self.fc6(h)), train=dropout)
+        h = F.dropout(F.relu(self.fc7(h)), train=dropout)
+        h = self.fc8(h)
+
+        return h
