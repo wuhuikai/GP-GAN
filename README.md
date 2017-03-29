@@ -7,8 +7,6 @@ GP-GAN (aka. Gaussian-Poisson GAN) is the author's implementation of the high-re
 "GP-GAN: Towards Realistic High-Resolution Image Blending"   
 Huikai Wu, Shuai Zheng, Junge Zhang, Kaiqi Huang
 
-Submitted To International Conference on Computer Vision (ICCV) 2017
-
 Given a source image, a destination image and a mask, our algorithm could blend the two images given the mask and generate high-resolution and realsitic results. Our algorithm is based on deep generative models such as [Wasserstein GAN](https://arxiv.org/abs/1701.07875).
 
 Contact: Hui-Kai Wu (huikaiwu@icloud.com)
