@@ -3,6 +3,11 @@
 Official Chainer implementation of GP-GAN: Towards Realistic High-Resolution Image Blending
 
 ## Overview
+
+| source | destination | mask | composited | blended |
+| --- | --- | --- | --- | --- |
+| ![](images/test_images/src.jpg) | ![](images/test_images/dst.jpg) | ![](images/test_images/mask_display.png) | ![](images/test_images/copy-paste.png) | ![](images/test_images/result.png) |
+
 GP-GAN (aka. Gaussian-Poisson GAN) is the author's implementation of the high-resolution image blending algorithm described in:  
 "GP-GAN: Towards Realistic High-Resolution Image Blending"   
 Huikai Wu, Shuai Zheng, Junge Zhang, Kaiqi Huang
@@ -24,10 +29,6 @@ cd GP-GAN
 ``` bash
 python run_gp_gan.py --src_image images/test_images/src.jpg --dst_image images/test_images/dst.jpg --mask_image images/test_images/mask.png --blended_image images/test_images/result.png
 ```
-
-| source | destination | mask | composited | blended |
-| --- | --- | --- | --- | --- |
-| ![](images/test_images/src.jpg) | ![](images/test_images/dst.jpg) | ![](images/test_images/mask_display.png) | ![](images/test_images/copy-paste.png) | ![](images/test_images/result.png) |
 
 ## Results compared with baseline methods
 
@@ -93,7 +94,7 @@ python train_wasserstein_gan.py --data_root [Path for outdoor_64.hdf5]
 ![](images/unsupervised_gan_result/d_loss.png)
 * Samples after training
 
-![](images/unsupervised_gan_result/samples.png)
+  ![](images/unsupervised_gan_result/samples.png)
 
 **NOTE:** Type `python [SCRIPT_NAME].py --help` for more details about the arguments.
 
