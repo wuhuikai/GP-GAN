@@ -58,7 +58,7 @@ Details see the official [README](https://github.com/scikit-image/scikit-image) 
 ```bash
 pip install chainer
 ```
-Details see the official [README](https://github.com/pfnet/chainer) for installing Chainer.
+Details see the official [README](https://github.com/pfnet/chainer) for installing Chainer. **NOTE**: All experiments are tested with Chainer 1.22.0. It should work well with Chainer 1.**.* without any change.
 ## Command line arguments:
 Type `python run_gp_gan.py --help` for a complete list of the arguments.
 * `--supervised`: use unsupervised Blending GAN if set to False
