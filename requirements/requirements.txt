@@ -1,6 +1,5 @@
-chainer
-cupy-cuda100
-git+git://github.com/mila-udem/fuel.git
+chainer==1.24
+cupy==2.0
 numpy
 scikit-image
 scipy

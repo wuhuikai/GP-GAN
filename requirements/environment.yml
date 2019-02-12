@@ -1,0 +1,9 @@
+name: blending
+dependencies:
+  - python=3.5
+  - pip
+  - chainer=2.0
+  - cupy=1.24
+  - numpy
+  - scikit-image
+  - scipy
