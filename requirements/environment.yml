@@ -2,8 +2,8 @@ name: blending
 dependencies:
   - python=3.5
   - pip
-  - chainer=2.0
-  - cupy=1.24
+  - chainer=1.24
+  - cupy=2.0
   - numpy
   - scikit-image
   - scipy
