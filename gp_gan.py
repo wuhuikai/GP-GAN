@@ -41,7 +41,7 @@ def z_generate(z, G, copy_paste_var, nz, gpu):
     z = np.reshape(z, (nz, 1, 1)).astype(np.float32)
     z_var = Variable(chainer.dataset.concat_examples([z], gpu))
 
-    loss = F.mean_squared_error(copy_paste_var, G(z_var, test=True))
+    loss = F.mean_squared_error(copy_paste_var, G(z_var))
     
     # Backward
     loss.backward()

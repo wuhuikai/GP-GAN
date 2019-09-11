@@ -93,7 +93,7 @@ def main():
         mask = imread(test_list[idx][2], as_gray=True).astype(obj.dtype)
 
 
-        with chainer.using_config("test", args.supervised):
+        with chainer.using_config("test", True):
             blended_im = gp_gan(obj, bg, mask, G, args.image_size, args.gpu, color_weight=args.color_weight, sigma=args.sigma,
                                     gradient_kernel=args.gradient_kernel, smooth_sigma=args.smooth_sigma,supervised=args.supervised,
                                     nz=args.nz, n_iteration=args.n_iteration)
