@@ -28,7 +28,6 @@ gradient_operator = {
 
 def preprocess(im):
     im = np.transpose(im*2-1, (2, 0, 1)).astype(np.float32)
-
     return im
 
 def ndarray_resize(im, image_size, order=3, dtype=None):
@@ -42,7 +41,7 @@ def z_generate(z, G, copy_paste_var, nz, gpu):
     z = np.reshape(z, (nz, 1, 1)).astype(np.float32)
     z_var = Variable(chainer.dataset.concat_examples([z], gpu))
 
-    loss = F.mean_squared_error(copy_paste_var, G(z_var, test=True))
+    loss = F.mean_squared_error(copy_paste_var, G(z_var))
     
     # Backward
     loss.backward()
@@ -187,12 +186,12 @@ def gp_gan(obj, bg, mask, G, image_size, gpu, color_weight=1, sigma=0.5, gradien
     copy_paste_init_var = Variable(chainer.dataset.concat_examples([preprocess(copy_paste_init)], gpu))
 
     if supervised:
-        gan_im_var = G(copy_paste_init_var, test=True)
+        gan_im_var = G(copy_paste_init_var)
     else:
         z_init = np.random.normal(size=(nz, 1, 1))
         res = minimize(z_generate, z_init, args=(G, copy_paste_init_var, nz, gpu), method='L-BFGS-B', jac=True, options={'maxiter': n_iteration, 'disp':False})
         z = np.reshape(res.x, (nz, 1, 1)).astype(np.float32)
-        gan_im_var = G(Variable(chainer.dataset.concat_examples([z], gpu)), test=True)
+        gan_im_var = G(Variable(chainer.dataset.concat_examples([z], gpu)))
     gan_im = np.clip(np.transpose((np.squeeze(cuda.to_cpu(gan_im_var.data))+1)/2, (1, 2, 0)), 0, 1).astype(obj.dtype)
 
     # Start pyramid

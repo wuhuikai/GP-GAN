@@ -56,10 +56,10 @@ class DCGAN_G(chainer.ChainList):
 
         super(DCGAN_G, self).__init__(*layers)
 
-    def __call__(self, x, test=False):
+    def __call__(self, x):
         for i in range(len(self)):
             if isinstance(self[i], L.BatchNormalization):
-                x = self[i](x, test=test)
+                x = self[i](x)
             else:
                 x = self[i](x)
         return x
@@ -84,18 +84,17 @@ class DCGAN_D(chainer.ChainList):
 
         super(DCGAN_D, self).__init__(*layers)
 
-    def encode(self, x, test=False):
+    def encode(self, x):
         for i in range(len(self)):
             if isinstance(self[i], L.BatchNormalization):
-                x = self[i](x, test=test)
+                x = self[i](x)
             else:
                 x = self[i](x)
 
         return x
 
-    def __call__(self, x, test=False):
-        x  = self.encode(x, test)
-
+    def __call__(self, x):
+        x  = self.encode(x)
         x = F.sum(x, axis=0) / x.shape[0]
         return F.squeeze(x)
 
@@ -107,21 +106,20 @@ class EncoderDecoder(chainer.Chain):
             decoder = DCGAN_G(image_size, nc, ngf, conv_init, bn_init)
         )
 
-    def encode(self, x, test=False):
-        h = self.encoder.encode(x, test=test)
-        h = F.leaky_relu(self.bn(h, test=test))
+    def encode(self, x):
+        h = self.encoder.encode(x)
+        h = F.leaky_relu(self.bn(h))
 
         return h
 
-    def decode(self, x, test=False):
-        h = self.decoder(x, test=test)
+    def decode(self, x):
+        h = self.decoder(x)
 
         return h
 
-    def __call__(self, x, test=False):
-        h = self.encode(x, test=test)
-        h = self.decode(h, test=test)
-
+    def __call__(self, x):
+        h = self.encode(x)
+        h = self.decode(h)
         return h
 
 class RealismCNN(chainer.Chain):
