@@ -1,9 +1,8 @@
 import os
 
+import chainer
 import numpy as np
 from skimage.io import imsave
-
-import chainer
 
 from utils import make_grid
 
@@ -16,7 +15,7 @@ def sampler(G, dst, inputv, name):
                 fake = G(inputv)
                 fake = chainer.cuda.to_cpu(fake.data)
                 img = make_grid(fake)
-                img = np.asarray(np.transpose(np.clip((img+1)*127.5, 0, 255), (1, 2, 0)), dtype=np.uint8)
+                img = np.asarray(np.transpose(np.clip((img + 1) * 127.5, 0, 255), (1, 2, 0)), dtype=np.uint8)
                 imsave(os.path.join(dst, name.format(trainer.updater.iteration)), img)
 
     return make_image

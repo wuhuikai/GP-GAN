@@ -1,7 +1,6 @@
-import numpy as np
-
 import chainer
 import chainer.functions as F
+import numpy as np
 from chainer import Variable
 
 
@@ -15,9 +14,9 @@ class WassersteinUpdaterFramework(chainer.training.StandardUpdater):
     def d_loss(self, errD_real, errD_fake):
         errD = errD_real - errD_fake
 
-        chainer.report({'loss_real':errD_real}, self.D)
-        chainer.report({'loss_fake':errD_fake}, self.D)
-        chainer.report({'loss':errD}, self.D)
+        chainer.report({'loss_real': errD_real}, self.D)
+        chainer.report({'loss_fake': errD_fake}, self.D)
+        chainer.report({'loss': errD}, self.D)
 
         return errD
 
@@ -60,18 +59,18 @@ class EncoderDecoderBlendingUpdater(WassersteinUpdaterFramework):
 
     def g_loss(self, errG, fake, gtv):
         l2_loss = F.mean_squared_error(fake, gtv)
-        loss = (1-self.args.l2_weight)*errG + self.args.l2_weight*l2_loss
+        loss = (1 - self.args.l2_weight) * errG + self.args.l2_weight * l2_loss
 
-        chainer.report({'loss':loss}, self.G)
-        chainer.report({'l2_loss':l2_loss}, self.G)
-        chainer.report({'gan_loss':errG}, self.G)
+        chainer.report({'loss': loss}, self.G)
+        chainer.report({'l2_loss': l2_loss}, self.G)
+        chainer.report({'gan_loss': errG}, self.G)
 
         return loss
 
     def update_d(self, optimizer):
         batch = self.get_iterator('main').next()
         inputv = Variable(self.converter([inputs for inputs, _ in batch], self.device))
-        gtv    = Variable(self.converter([gt     for _, gt     in batch], self.device))
+        gtv = Variable(self.converter([gt for _, gt in batch], self.device))
         errD_real = self.D(gtv)
 
         # train with fake
@@ -83,7 +82,7 @@ class EncoderDecoderBlendingUpdater(WassersteinUpdaterFramework):
     def update_g(self, optimizer):
         batch = self.get_iterator('main').next()
         inputv = Variable(self.converter([inputs for inputs, _ in batch], self.device))
-        gtv    = Variable(self.converter([gt     for _, gt     in batch], self.device))
+        gtv = Variable(self.converter([gt for _, gt in batch], self.device))
         fake = self.G(inputv)
         errG = self.D(fake)
         optimizer.update(self.g_loss, errG, fake, gtv)
@@ -94,7 +93,7 @@ class WassersteinUpdater(WassersteinUpdaterFramework):
         super(WassersteinUpdater, self).__init__(*args, **kwargs)
 
     def g_loss(self, errG):
-        chainer.report({'loss':errG}, self.G)
+        chainer.report({'loss': errG}, self.G)
 
         return errG
 
@@ -104,7 +103,8 @@ class WassersteinUpdater(WassersteinUpdaterFramework):
         errD_real = self.D(inputv)
 
         # train with fake
-        noisev = Variable(np.asarray(np.random.normal(size=(self.args.batch_size, self.args.nz, 1, 1)), dtype=np.float32))
+        noisev = Variable(
+            np.asarray(np.random.normal(size=(self.args.batch_size, self.args.nz, 1, 1)), dtype=np.float32))
         noisev.to_device(self.device)
         fake = self.G(noisev)
         errD_fake = self.D(fake)
@@ -112,7 +112,8 @@ class WassersteinUpdater(WassersteinUpdaterFramework):
         optimizer.update(self.d_loss, errD_real, errD_fake)
 
     def update_g(self, optimizer):
-        noisev = Variable(np.asarray(np.random.normal(size=(self.args.batch_size, self.args.nz, 1, 1)), dtype=np.float32))
+        noisev = Variable(
+            np.asarray(np.random.normal(size=(self.args.batch_size, self.args.nz, 1, 1)), dtype=np.float32))
         noisev.to_device(self.device)
         fake = self.G(noisev)
         errG = self.D(fake)

@@ -1,7 +1,6 @@
 import chainer
-import chainer.links as L
 import chainer.functions as F
-
+import chainer.links as L
 from chainer import cuda
 
 
@@ -41,7 +40,7 @@ class LeakyReLU(chainer.Chain):
 
 class DCGAN_G(chainer.ChainList):
     def __init__(self, isize, nc, ngf, conv_init=None, bn_init=None):
-        cngf, tisize = ngf//2, 4
+        cngf, tisize = ngf // 2, 4
         while tisize != isize:
             cngf = cngf * 2
             tisize = tisize * 2
@@ -52,9 +51,9 @@ class DCGAN_G(chainer.ChainList):
         layers.append(L.BatchNormalization(cngf, initial_gamma=bn_init))
         layers.append(ReLU())
         csize, cndf = 4, cngf
-        while csize < isize//2:
-            layers.append(L.Deconvolution2D(None, cngf//2, ksize=4, stride=2, pad=1, initialW=conv_init, nobias=True))
-            layers.append(L.BatchNormalization(cngf//2, initial_gamma=bn_init))
+        while csize < isize // 2:
+            layers.append(L.Deconvolution2D(None, cngf // 2, ksize=4, stride=2, pad=1, initialW=conv_init, nobias=True))
+            layers.append(L.BatchNormalization(cngf // 2, initial_gamma=bn_init))
             layers.append(ReLU())
             cngf = cngf // 2
             csize = csize * 2
@@ -97,7 +96,7 @@ class DCGAN_D(chainer.ChainList):
         return x
 
     def __call__(self, x):
-        x  = self.encode(x)
+        x = self.encode(x)
         x = F.sum(x, axis=0) / x.shape[0]
         return F.squeeze(x)
 
@@ -105,9 +104,9 @@ class DCGAN_D(chainer.ChainList):
 class EncoderDecoder(chainer.Chain):
     def __init__(self, nef, ngf, nc, nBottleneck, image_size=64, conv_init=None, bn_init=None):
         super(EncoderDecoder, self).__init__(
-            encoder = DCGAN_D(image_size, nef, nBottleneck, conv_init, bn_init),
-            bn      = L.BatchNormalization(nBottleneck, initial_gamma=bn_init),
-            decoder = DCGAN_G(image_size, nc, ngf, conv_init, bn_init)
+            encoder=DCGAN_D(image_size, nef, nBottleneck, conv_init, bn_init),
+            bn=L.BatchNormalization(nBottleneck, initial_gamma=bn_init),
+            decoder=DCGAN_G(image_size, nc, ngf, conv_init, bn_init)
         )
 
     def encode(self, x):

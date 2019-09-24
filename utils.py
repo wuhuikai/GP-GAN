@@ -9,18 +9,18 @@ def make_grid(tensor, padding=2):
     """
     # make the mini-batch of images into a grid
     nmaps = tensor.shape[0]
-    xmaps = int(nmaps**0.5)
+    xmaps = int(nmaps ** 0.5)
     ymaps = int(math.ceil(nmaps / xmaps))
     height, width = int(tensor.shape[2] + padding), int(tensor.shape[3] + padding)
-    grid = np.ones((3, height*ymaps, width*xmaps))
+    grid = np.ones((3, height * ymaps, width * xmaps))
     k = 0
     sy = 1 + padding // 2
-    for y in range(ymaps): 
+    for y in range(ymaps):
         sx = 1 + padding // 2
         for x in range(xmaps):
             if k >= nmaps:
                 break
-            grid[:, sy:sy+height-padding, sx:sx+width-padding] = tensor[k]
+            grid[:, sy:sy + height - padding, sx:sx + width - padding] = tensor[k]
             sx += width
             k = k + 1
         sy += height
