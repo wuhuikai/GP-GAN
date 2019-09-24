@@ -49,47 +49,31 @@ Contact: Hui-Kai Wu (huikaiwu@icloud.com)
     ```
 * Type `python run_gp_gan.py --help` for a complete list of the arguments.
 
-### Train
-The code is written in Python3.5 and requires the following 3rd party libraries:
-* scipy
-* numpy
-* [fuel](http://fuel.readthedocs.io/en/latest/index.html)
-```bash
-pip install git+git://github.com/mila-udem/fuel.git
-```
-Details see the official [README](http://fuel.readthedocs.io/en/latest/setup.html) for installing fuel.
-* [skimage](http://scikit-image.org/)
-```bash
-pip install scikit-image
-```
-Details see the official [README](https://github.com/scikit-image/scikit-image) for installing skimage.
-* [Chainer](http://chainer.org/)
-```bash
-pip install chainer
-```
-Details see the official [README](https://github.com/pfnet/chainer) for installing Chainer. **NOTE**: All experiments are tested with Chainer 1.22.0. It should work well with Chainer 1.**.* without any change.
-
-## Step by step from scratch
-### Training Blending GAN
+## Train GP-GAN step by step
+### Train Blending GAN
 * Download Transient Attributes Dataset, see [the project website](http://transattr.cs.brown.edu/) for more details.
 * Crop the images in each subfolder:
-```bash
-python crop_aligned_images.py --data_root [Path for imageAlignedLD in Transient Attributes Dataset]
-```
+    ```bash
+    python crop_aligned_images.py --data_root [Path for imageAlignedLD in Transient Attributes Dataset]
+    ```
 * Train Blending GAN:
-```bash
-python train_blending_gan.py --data_root [Path for cropped aligned images of Transient Attributes Dataset]
-```
+    ```bash
+    python train_blending_gan.py --data_root [Path for cropped aligned images of Transient Attributes Dataset]
+    ```
 * Training Curve
 
-![](images/blending_gan_result/loss.png)
-* Result
+    ![](images/blending_gan_result/loss.png)
+* Visual Result
 
-| Training Set | Validation Set |
-| --- | --- |
-| ![](images/blending_gan_result/train.png) | ![](images/blending_gan_result/val.png) |
+    | Training Set | Validation Set |
+    | --- | --- |
+    | ![](images/blending_gan_result/train.png) | ![](images/blending_gan_result/val.png) |
 
 ### Training Unsupervised Blending GAN
+### Requirements
+```bash
+pip install -r requirements/train/requirements.txt
+```
 * Download the hdf5 dataset of outdoor natural images: [ourdoor_64.hdf5](https://people.eecs.berkeley.edu/~junyanz/projects/gvm/datasets/outdoor_64.zip) (1.4G), which contains 150K landscape images from MIT [Places](http://places.csail.mit.edu/) dataset. 
 * Train unsupervised Blending GAN:
 ```bash

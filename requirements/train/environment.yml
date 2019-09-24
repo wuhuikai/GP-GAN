@@ -1,9 +1,7 @@
-name: blending
+name: gp-gan
 dependencies:
   - python=3.5
-  - pip
-  - chainer=4.4.0
-  - cupy=4.1.0
-  - numpy
-  - scikit-image
-  - scipy
+  - pip=18.0
+  - chainer=6.3.0
+  - cupy=6.3.0
+  - scikit-image=0.15.0

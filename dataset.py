@@ -8,10 +8,11 @@ from skimage.transform import resize
 
 from chainer.dataset import dataset_mixin
 
-from fuel.datasets.hdf5 import H5PYDataset
 
 class H5pyDataset(dataset_mixin.DatasetMixin):
     def __init__(self, path, which_set='train', load_size=None, crop_size=None, dtype=numpy.float32):
+        from fuel.datasets.hdf5 import H5PYDataset
+
         self._dtype = dtype
         self._load_size = load_size
         self._crop_size = crop_size

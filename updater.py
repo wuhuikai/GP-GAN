@@ -41,6 +41,8 @@ class WassersteinUpdaterFramework(chainer.training.StandardUpdater):
         for _ in range(Diters):
             # clamp parameters to a cube
             for p in self.D.params():
+                if p.data is None:
+                    continue
                 p.data.clip(self.args.clamp_lower, self.args.clamp_upper, p.data)
 
             self.update_d(d_optimizer)

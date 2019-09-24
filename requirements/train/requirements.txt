@@ -1,5 +1,3 @@
-chainer==1.24
-cupy==2.0
-numpy
-scikit-image
-scipy
+chainer==6.3.0
+cupy==6.3.0
+scikit-image==0.15.0

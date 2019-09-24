@@ -4,6 +4,9 @@ import os
 import random
 import argparse
 
+import matplotlib
+matplotlib.use('Agg')
+
 import chainer
 from chainer import training, serializers, Variable
 from chainer.training import extensions
@@ -46,7 +49,7 @@ def main():
 
     parser.add_argument('--experiment', default='encoder_decoder_blending_result', help='Where to store samples and models')
     parser.add_argument('--test_folder', default='samples', help='Where to store test results')
-    parser.add_argument('--workers', type=int, default=10, help='# of data loading workers')
+    parser.add_argument('--workers', type=int, default=4, help='# of data loading workers')
     parser.add_argument('--batch_size', type=int, default=64, help='Input batch size')
     parser.add_argument('--test_size', type=int, default=64, help='Batch size for testing')
 
@@ -132,11 +135,11 @@ def main():
     plot_interval = (args.plot_interval, 'iteration')
 
     trainer.extend(
-        extensions.PlotReport(['main/loss'], 'iteration', file_name='loss.png', trigger=plot_interval), trigger=plot_interval)
+        extensions.PlotReport(['main/loss'], 'iteration', file_name='loss.png', trigger=plot_interval))
     trainer.extend(
-        extensions.PlotReport(['D/loss'], 'iteration', file_name='d_loss.png', trigger=plot_interval), trigger=plot_interval)
+        extensions.PlotReport(['D/loss'], 'iteration', file_name='d_loss.png', trigger=plot_interval))
     trainer.extend(
-        extensions.PlotReport(['main/l2_loss'], 'iteration', file_name='l2_loss.png', trigger=plot_interval), trigger=plot_interval)
+        extensions.PlotReport(['main/l2_loss'], 'iteration', file_name='l2_loss.png', trigger=plot_interval))
     
     # Eval
     path = os.path.join(args.experiment, args.test_folder)
@@ -145,12 +148,12 @@ def main():
     print('Saving samples to {} ...\n'.format(path))
 
     train_batch = [trainset[idx][0] for idx in range(args.test_size)]
-    train_v = Variable(chainer.dataset.concat_examples(train_batch, args.gpu), volatile='on')
+    train_v = Variable(chainer.dataset.concat_examples(train_batch, args.gpu))
     trainer.extend(sampler(G, path, train_v, 'fake_samples_train_{}.png'), trigger=plot_interval)
 
     val_batch = [valset[idx][0] for idx in range(args.test_size)]
-    val_v = Variable(chainer.dataset.concat_examples(val_batch, args.gpu), volatile='on')
-    trainer.extend(sampler(G, path, val_v, 'fake_samples_val_{}.png'), trigger=plot_interval)    
+    val_v = Variable(chainer.dataset.concat_examples(val_batch, args.gpu))
+    trainer.extend(sampler(G, path, val_v, 'fake_samples_val_{}.png'), trigger=plot_interval)
     
     if args.resume:
         # Resume from a snapshot
