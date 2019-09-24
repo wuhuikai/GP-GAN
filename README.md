@@ -47,6 +47,7 @@ Contact: Hui-Kai Wu (huikaiwu@icloud.com)
     ``` bash
     python run_gp_gan.py --src_image images/test_images/src.jpg --dst_image images/test_images/dst.jpg --mask_image images/test_images/mask.png --blended_image images/test_images/result.png --supervised False
     ```
+* Type `python run_gp_gan.py --help` for a complete list of the arguments.
 
 ### Train
 The code is written in Python3.5 and requires the following 3rd party libraries:
@@ -102,24 +103,6 @@ python train_wasserstein_gan.py --data_root [Path for outdoor_64.hdf5]
 
 **NOTE:** Type `python [SCRIPT_NAME].py --help` for more details about the arguments.
 
-## Object-level annotation for Transient Attributes Dataset (used for mask images)
-* The folder name on [LabelMe](http://labelme.csail.mit.edu/Release3.0/) is `/transient_attributes_101`
-* The processed masks are in the folder [`mask`](mask) on this repository
-* Coresponding scripts for processing raw xmls from `LabelMe` are also in the folder [`mask`](mask)
-
-## Evaluate blended results using RealismCNN
-### Get pretrained realismCNN
-Download pretrained [caffe model](http://www.eecs.berkeley.edu/~junyanz/projects/realism/realismCNN_models.zip) and transform it to Chainer model:
-```bash
-python load_caffe_model.py
-```
-**Or**
-Download pretrained [Chainer model](https://drive.google.com/open?id=0Bybnpq8dvwudVjBHNWNHUmVSV28) directly.
-### Evalute the blended images
-```bash
-python predict_realism.py --list_path [List File]
-```
-
 ## Visual results
 
 | Mask | Copy-and-Paste | Modified-Poisson | Multi-splines | Supervised GP-GAN | Unsupervised GP-GAN |
@@ -129,33 +112,3 @@ python predict_realism.py --list_path [List File]
 | ![](images/result_comparison/1550_mask.png) | ![](images/result_comparison/1550_copy-paste.png) | ![](images/result_comparison/1550_modified-poisson.png) | ![](images/result_comparison/1550_multi-splines.png) | ![](images/result_comparison/1550_poisson-gan-encoder.png) | ![](images/result_comparison/1550_poisson-gan-wgan.png) |
 | ![](images/result_comparison/1920_mask.png) | ![](images/result_comparison/1920_copy-paste.png) | ![](images/result_comparison/1920_modified-poisson.png) | ![](images/result_comparison/1920_multi-splines.png) | ![](images/result_comparison/1920_poisson-gan-encoder.png) | ![](images/result_comparison/1920_poisson-gan-wgan.png) |
 | ![](images/result_comparison/1153_mask.png) | ![](images/result_comparison/1153_copy-paste.png) | ![](images/result_comparison/1153_modified-poisson.png) | ![](images/result_comparison/1153_multi-splines.png) | ![](images/result_comparison/1153_poisson-gan-encoder.png) | ![](images/result_comparison/1153_poisson-gan-wgan.png) |
-
-## Command line arguments:
-Type `python run_gp_gan.py --help` for a complete list of the arguments.
-* `--supervised`: use unsupervised Blending GAN if set to False
-* `--list_path`: process batch of images according to the list
-
-## User Study
-### Set up image server
-* Install lighttgb:
-```bash
-sudo apt-get install lighttpd
-```
-* Start server by running the script in folder [`user_study`](user_study):
-```bash
-sh light_tpd_server.sh [Image Folder] [Port]
-```
-### Template for user study
-See [`user_study.html`] in folder [`user_study`](user_study) for details.
-
-![](user_study/user_study.png)
-
-## Baseline Methods
-Code for baseline methods can be downloaded from [here](http://cg.cs.tsinghua.edu.cn/blending/).
-
-Also, the modified code for baseline methods is in folder [`Baseline`](Baseline).
-
-## TODO
-- [ ] Experiment with more gradient operators like [Sobel](https://en.wikipedia.org/wiki/Sobel_operator) or egde detectors like [Canny](https://en.wikipedia.org/wiki/Canny_edge_detector).
-- [ ] Add more constraints for optimizing `z` vector like [Perception Loss](http://cs.stanford.edu/people/jcjohns/eccv16/).
-- [ ] Try different losses like [CNN-MRF](https://github.com/chuanli11/CNNMRF).
