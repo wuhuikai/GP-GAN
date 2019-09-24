@@ -42,13 +42,13 @@ def z_generate(z, G, copy_paste_var, nz, gpu):
     z_var = Variable(chainer.dataset.concat_examples([z], gpu))
 
     loss = F.mean_squared_error(copy_paste_var, G(z_var))
-    
+
     # Backward
     loss.backward()
     # Transfer loss & diff from GPU to CPU
     loss = cuda.to_cpu(loss.data)
     dz = np.squeeze(cuda.to_cpu(z_var.grad))
-    
+
     return loss, np.asarray(dz.flatten(), dtype=np.float64)
 
 def imfilter2d(im, filter_func):

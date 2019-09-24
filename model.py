@@ -58,10 +58,8 @@ class DCGAN_G(chainer.ChainList):
 
     def __call__(self, x):
         for i in range(len(self)):
-            if isinstance(self[i], L.BatchNormalization):
-                x = self[i](x)
-            else:
-                x = self[i](x)
+            x = self[i](x)
+
         return x
 
 class DCGAN_D(chainer.ChainList):
@@ -86,10 +84,7 @@ class DCGAN_D(chainer.ChainList):
 
     def encode(self, x):
         for i in range(len(self)):
-            if isinstance(self[i], L.BatchNormalization):
-                x = self[i](x)
-            else:
-                x = self[i](x)
+            x = self[i](x)
 
         return x
 

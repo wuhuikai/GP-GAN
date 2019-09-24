@@ -11,5 +11,5 @@ RUN apt-get install -y python3.5 python3.5-dev
 
 RUN apt-get -y install python3-pip git
 
-COPY . .
+COPY .. .
 RUN pip3 install -r requirements/requirements.txt

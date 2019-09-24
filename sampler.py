@@ -10,7 +10,7 @@ from utils import make_grid
 def sampler(G, dst, inputv, name):
     @chainer.training.make_extension()
     def make_image(trainer):
-        with chainer.using_config("test", True):    
+        with chainer.using_config("Train", False):
             fake = G(inputv)
             fake = chainer.cuda.to_cpu(fake.data)
             img = make_grid(fake)

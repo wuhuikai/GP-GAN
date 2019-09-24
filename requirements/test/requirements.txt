@@ -1,0 +1,3 @@
+chainer==6.3.0
+cupy==6.3.0
+scikit-image==0.15.0

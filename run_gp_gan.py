@@ -60,6 +60,7 @@ def main():
         print('Load pretrained Blending GAN model from {} ...'.format(args.g_path))
         serializers.load_npz(args.g_path, G)
     else:
+        chainer.config.use_cudnn = 'never'
         G = DCGAN_G(args.image_size, args.nc, args.ngf)
         print('Load pretrained unsupervised Blending GAN model from {} ...'.format(args.unsupervised_path))
         serializers.load_npz(args.unsupervised_path, G)
@@ -92,8 +93,7 @@ def main():
         bg  = img_as_float(imread(test_list[idx][1]))
         mask = imread(test_list[idx][2], as_gray=True).astype(obj.dtype)
 
-
-        with chainer.using_config("test", True):
+        with chainer.using_config("train", False):
             blended_im = gp_gan(obj, bg, mask, G, args.image_size, args.gpu, color_weight=args.color_weight, sigma=args.sigma,
                                     gradient_kernel=args.gradient_kernel, smooth_sigma=args.smooth_sigma,supervised=args.supervised,
                                     nz=args.nz, n_iteration=args.n_iteration)
