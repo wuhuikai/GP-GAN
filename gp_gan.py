@@ -13,6 +13,7 @@ import chainer
 import chainer.functions as F
 from chainer import cuda, Variable
 
+
 ################## Gradient Operator #########################
 normal_h = lambda im: correlate(im, np.asarray([[0, -1, 1]]),   mode='nearest')
 normal_v = lambda im: correlate(im, np.asarray([[0, -1, 1]]).T, mode='nearest')
@@ -26,9 +27,11 @@ gradient_operator = {
 }
 ###########################################################
 
+
 def preprocess(im):
     im = np.transpose(im*2-1, (2, 0, 1)).astype(np.float32)
     return im
+
 
 def ndarray_resize(im, image_size, order=3, dtype=None):
     im = resize(im, image_size, preserve_range=True, order=order, mode='constant')
@@ -36,6 +39,7 @@ def ndarray_resize(im, image_size, order=3, dtype=None):
     if dtype:
         im = im.astype(dtype)
     return im
+
 
 def z_generate(z, G, copy_paste_var, nz, gpu):
     z = np.reshape(z, (nz, 1, 1)).astype(np.float32)
@@ -51,12 +55,14 @@ def z_generate(z, G, copy_paste_var, nz, gpu):
 
     return loss, np.asarray(dz.flatten(), dtype=np.float64)
 
+
 def imfilter2d(im, filter_func):
     gradients = np.zeros_like(im)
     for i in range(im.shape[2]):
         gradients[:, :, i] = filter_func(im[:, :, i])
 
     return gradients
+
 
 def gradient_feature(im, color_feature, gradient_kernel):
     result = np.zeros((*im.shape, 5))
@@ -71,12 +77,14 @@ def gradient_feature(im, color_feature, gradient_kernel):
 
     return result.astype(im.dtype)
 
+
 def fft2(K, size, dtype):
     w, h = size
     param = np.fft.fft2(K)
     param = np.real(param[0:w, 0:h])
 
     return param.astype(dtype)
+
 
 def laplacian_param(size, dtype):
     w, h = size
@@ -91,6 +99,7 @@ def laplacian_param(size, dtype):
 
     return fft2(K, size, dtype)
 
+
 def gaussian_param(size, dtype, sigma):
     w, h = size
     K = np.zeros((2*w, 2*h)).astype(dtype)
@@ -103,11 +112,14 @@ def gaussian_param(size, dtype, sigma):
 
     return fft2(K, size, dtype)
 
+
 def dct2(x, norm='ortho'):
     return dct(dct(x, norm=norm).T, norm=norm).T
 
+
 def idct2(x, norm='ortho'):
     return idct(idct(x, norm=norm).T, norm=norm).T
+
 
 def gaussian_poisson_editing(X, param_l, param_g, color_weight=1, eps=1e-12):
     Fh = (X[:, :, :, 1] + np.roll(X[:, :, :, 3], -1, axis=1)) / 2
@@ -125,6 +137,7 @@ def gaussian_poisson_editing(X, param_l, param_g, color_weight=1, eps=1e-12):
          Y[:, :, i] = idct2(Ydct)
     return Y
 
+
 def run_gp_editing(src_im, dst_im, mask_im, gan_im, color_weight, sigma, gradient_kernel='normal'):
     dst_feature = gradient_feature(dst_im, gan_im, gradient_kernel)
     src_feature = gradient_feature(src_im, gan_im, gradient_kernel)
@@ -137,6 +150,7 @@ def run_gp_editing(src_im, dst_im, mask_im, gan_im, color_weight, sigma, gradien
     gan_im  = np.clip(gan_im, 0, 1)
 
     return gan_im
+
 
 def laplacian_pyramid(im, max_level, image_size, smooth_sigma):
     im_pyramid = [im]
@@ -151,6 +165,7 @@ def laplacian_pyramid(im, max_level, image_size, smooth_sigma):
     diff_pyramid.reverse()
 
     return im_pyramid, diff_pyramid
+
 
 """
 GP-GAN: Towards Realistic High-Resolution Image Blending

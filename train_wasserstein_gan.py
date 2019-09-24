@@ -15,10 +15,12 @@ from dataset import H5pyDataset
 from updater import WassersteinUpdater
 from sampler import sampler
 
+
 def make_optimizer(model, lr):
     optimizer = chainer.optimizers.RMSprop(lr=lr)
     optimizer.setup(model)
     return optimizer
+
 
 def main():
     parser = argparse.ArgumentParser(description='Train Unsupervised Blending GAN')
@@ -143,6 +145,7 @@ def main():
     # Run the training
     print('Training start ...\n')
     trainer.run()
+
 
 if __name__ == '__main__':
     main()

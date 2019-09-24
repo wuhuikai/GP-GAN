@@ -1,6 +1,5 @@
 # Model files
 *.npz
-*.caffemodel
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

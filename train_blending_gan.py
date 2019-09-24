@@ -16,10 +16,12 @@ from dataset import BlendingDataset
 from updater import EncoderDecoderBlendingUpdater
 from sampler import sampler
 
+
 def make_optimizer(model, alpha, beta1):
     optimizer = chainer.optimizers.Adam(alpha=alpha, beta1=beta1)
     optimizer.setup(model)
     return optimizer
+
 
 def main():
     parser = argparse.ArgumentParser(description='Train Blending GAN')
@@ -163,6 +165,7 @@ def main():
     # Run the training
     print('Training start ...\n')
     trainer.run()
+
 
 if __name__ == '__main__':
     main()

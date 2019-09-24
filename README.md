@@ -70,22 +70,20 @@ Contact: Hui-Kai Wu (huikaiwu@icloud.com)
     | ![](images/blending_gan_result/train.png) | ![](images/blending_gan_result/val.png) |
 
 ### Training Unsupervised Blending GAN
-### Requirements
-```bash
-pip install -r requirements/train/requirements.txt
-```
+* Requirements
+    ```bash
+    pip install git+git://github.com/mila-udem/fuel.git@stable
+    ```
 * Download the hdf5 dataset of outdoor natural images: [ourdoor_64.hdf5](https://people.eecs.berkeley.edu/~junyanz/projects/gvm/datasets/outdoor_64.zip) (1.4G), which contains 150K landscape images from MIT [Places](http://places.csail.mit.edu/) dataset. 
 * Train unsupervised Blending GAN:
-```bash
-python train_wasserstein_gan.py --data_root [Path for outdoor_64.hdf5]
-```
+    ```bash
+    python train_wasserstein_gan.py --data_root [Path for outdoor_64.hdf5]
+    ```
 * Training Curve
 ![](images/unsupervised_gan_result/d_loss.png)
 * Samples after training
 
   ![](images/unsupervised_gan_result/samples.png)
-
-**NOTE:** Type `python [SCRIPT_NAME].py --help` for more details about the arguments.
 
 ## Visual results
 

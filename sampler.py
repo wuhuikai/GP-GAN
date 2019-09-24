@@ -7,6 +7,7 @@ import chainer
 
 from utils import make_grid
 
+
 def sampler(G, dst, inputv, name):
     @chainer.training.make_extension()
     def make_image(trainer):

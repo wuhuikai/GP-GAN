@@ -4,6 +4,7 @@ import chainer
 import chainer.functions as F
 from chainer import Variable
 
+
 class WassersteinUpdaterFramework(chainer.training.StandardUpdater):
     def __init__(self, *args, **kwargs):
         self.G, self.D = kwargs.pop('models')
@@ -52,6 +53,7 @@ class WassersteinUpdaterFramework(chainer.training.StandardUpdater):
         ###########################
         self.update_g(g_optimizer)
 
+
 class EncoderDecoderBlendingUpdater(WassersteinUpdaterFramework):
     def __init__(self, *args, **kwargs):
         super(EncoderDecoderBlendingUpdater, self).__init__(*args, **kwargs)
@@ -86,6 +88,7 @@ class EncoderDecoderBlendingUpdater(WassersteinUpdaterFramework):
         errG = self.D(fake)
         optimizer.update(self.g_loss, errG, fake, gtv)
 
+
 class WassersteinUpdater(WassersteinUpdaterFramework):
     def __init__(self, *args, **kwargs):
         super(WassersteinUpdater, self).__init__(*args, **kwargs)
@@ -102,7 +105,7 @@ class WassersteinUpdater(WassersteinUpdaterFramework):
 
         # train with fake
         noisev = Variable(np.asarray(np.random.normal(size=(self.args.batch_size, self.args.nz, 1, 1)), dtype=np.float32))
-        noisev.to_gpu(self.device)
+        noisev.to_device(self.device)
         fake = self.G(noisev)
         errD_fake = self.D(fake)
 
@@ -110,7 +113,7 @@ class WassersteinUpdater(WassersteinUpdaterFramework):
 
     def update_g(self, optimizer):
         noisev = Variable(np.asarray(np.random.normal(size=(self.args.batch_size, self.args.nz, 1, 1)), dtype=np.float32))
-        noisev.to_gpu(self.device)
+        noisev.to_device(self.device)
         fake = self.G(noisev)
         errG = self.D(fake)
         optimizer.update(self.g_loss, errG)

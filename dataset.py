@@ -41,6 +41,7 @@ class H5pyDataset(dataset_mixin.DatasetMixin):
 
         return im
 
+
 class BlendingDataset(dataset_mixin.DatasetMixin):
     def __init__(self, total_examples, folders, root, ratio, load_size, crop_size, dtype=numpy.float32):
         imgs_per_folder = {folder:glob.glob(os.path.join(root, folder, '*')) for folder in folders}

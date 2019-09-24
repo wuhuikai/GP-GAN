@@ -11,4 +11,5 @@ RUN apt-get install -y python3.5 python3.5-dev python3-pip git
 RUN git clone https://github.com/wuhuikai/GP-GAN.git
 WORKDIR GP-GAN
 RUN pip3 install --upgrade pip
-RUN pip3 install -r requirements/train/requirements.txt
+RUN pip3 install -r requirements/test/requirements.txt
+RUN pip3 install git+git://github.com/mila-udem/fuel.git

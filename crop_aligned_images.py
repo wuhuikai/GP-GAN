@@ -2,9 +2,8 @@ import os
 import glob
 import argparse
 
-import numpy as np
-
 from skimage.io import imread, imsave
+
 
 def main():
     parser = argparse.ArgumentParser(description='Cropping aligned images')
@@ -34,6 +33,7 @@ def main():
                 
                 mask_name = os.path.basename(data_root)
                 imsave(os.path.join(args.result_folder, name, mask_name), cropped_mask)
+
 
 if __name__ == '__main__':
     main()
