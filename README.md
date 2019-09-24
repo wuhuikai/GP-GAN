@@ -1,5 +1,5 @@
 # GP-GAN: Towards Realistic High-Resolution Image Blending (ACMMM 2019, **oral**)
-[[Project]](https://wuhuikai.github.io/GP-GAN-Project/)   [[Paper]](https://arxiv.org/abs/1703.07195)   [[Related Work: A2RL (for Auto Image Cropping)]](https://github.com/wuhuikai/TF-A2RL)  
+[[Project]](https://wuhuikai.github.io/GP-GAN-Project/)   [[Paper]](https://arxiv.org/abs/1703.07195) [[Demo]](http://wuhuikai.me/DeepJS/)   [[Related Work: A2RL (for Auto Image Cropping)]](https://github.com/wuhuikai/TF-A2RL)  
 Official Chainer implementation of GP-GAN: Towards Realistic High-Resolution Image Blending
 
 ## Overview
@@ -51,7 +51,7 @@ Contact: Hui-Kai Wu (huikaiwu@icloud.com)
 
 ## Train GP-GAN step by step
 ### Train Blending GAN
-* Download Transient Attributes Dataset, see [the project website](http://transattr.cs.brown.edu/) for more details.
+* Download Transient Attributes Dataset [here](http://transattr.cs.brown.edu/files/aligned_images.tar).
 * Crop the images in each subfolder:
     ```bash
     python crop_aligned_images.py --data_root [Path for imageAlignedLD in Transient Attributes Dataset]
@@ -74,7 +74,7 @@ Contact: Hui-Kai Wu (huikaiwu@icloud.com)
     ```bash
     pip install git+git://github.com/mila-udem/fuel.git@stable
     ```
-* Download the hdf5 dataset of outdoor natural images: [ourdoor_64.hdf5](https://people.eecs.berkeley.edu/~junyanz/projects/gvm/datasets/outdoor_64.zip) (1.4G), which contains 150K landscape images from MIT [Places](http://places.csail.mit.edu/) dataset. 
+* Download the hdf5 dataset of outdoor natural images: [ourdoor_64.hdf5](http://efrosgans.eecs.berkeley.edu/iGAN/datasets/outdoor_64.zip) (1.4G), which contains 150K landscape images from MIT [Places](http://places.csail.mit.edu/) dataset. 
 * Train unsupervised Blending GAN:
     ```bash
     python train_wasserstein_gan.py --data_root [Path for outdoor_64.hdf5]
