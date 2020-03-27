@@ -1,5 +1,5 @@
 # GP-GAN: Towards Realistic High-Resolution Image Blending (ACMMM 2019, **oral**)
-[[Project]](https://wuhuikai.github.io/GP-GAN-Project/)   [[Paper]](https://arxiv.org/abs/1703.07195) [[Demo]](http://wuhuikai.me/DeepJS/)   [[Related Work: A2RL (for Auto Image Cropping)]](https://github.com/wuhuikai/TF-A2RL)  
+[[Project]](https://wuhuikai.github.io/GP-GAN-Project/)   [[Paper]](https://arxiv.org/abs/1703.07195) [[Demo]](http://wuhuikai.me/DeepJS/)   [[Related Work: A2RL (for Auto Image Cropping)]](https://github.com/wuhuikai/TF-A2RL)  [[Colab]](https://colab.research.google.com/drive/11ESQZpS-Abq87WZSfc325QwCFD-j_VnL)
 Official Chainer implementation of GP-GAN: Towards Realistic High-Resolution Image Blending
 
 ## Overview
